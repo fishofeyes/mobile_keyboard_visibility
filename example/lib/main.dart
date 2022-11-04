@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:mobile_keyboard_visibility/mobile_keyboard_visibility.dart';
 
 void main() {
@@ -51,7 +48,7 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Column(
             children: [
-              TextField(),
+              const TextField(),
               Text("键盘高度$height"),
               Text("键盘弹出$visibility"),
               TextButton(onPressed: () => _mobileKeyboardVisibilityPlugin.dispose(), child: Text("dispose"))
