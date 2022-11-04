@@ -4,12 +4,12 @@ import 'package:mobile_keyboard_visibility/mobile_keyboard_visibility_platform_i
 import 'package:mobile_keyboard_visibility/mobile_keyboard_visibility_method_channel.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-class MockMobileKeyboardVisibilityPlatform
-    with MockPlatformInterfaceMixin
-    implements MobileKeyboardVisibilityPlatform {
+class MockMobileKeyboardVisibilityPlatform with MockPlatformInterfaceMixin implements MobileKeyboardVisibilityPlatform {
+  @override
+  Future<void> mobileKeyBoardListener({Function(double height)? onHeight, Function(bool visibility)? onShow}) async {}
 
   @override
-  Future<String?> getPlatformVersion() => Future.value('42');
+  Future<void> dispose() async {}
 }
 
 void main() {
@@ -23,7 +23,5 @@ void main() {
     MobileKeyboardVisibility mobileKeyboardVisibilityPlugin = MobileKeyboardVisibility();
     MockMobileKeyboardVisibilityPlatform fakePlatform = MockMobileKeyboardVisibilityPlatform();
     MobileKeyboardVisibilityPlatform.instance = fakePlatform;
-
-    expect(await mobileKeyboardVisibilityPlugin.getPlatformVersion(), '42');
   });
 }
