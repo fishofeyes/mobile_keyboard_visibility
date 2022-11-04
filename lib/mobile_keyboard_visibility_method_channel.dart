@@ -7,11 +7,12 @@ import 'mobile_keyboard_visibility_platform_interface.dart';
 class MethodChannelMobileKeyboardVisibility extends MobileKeyboardVisibilityPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
-  final eventChannel = const EventChannel('mobile_keyboard_visibility_listener');
+  final eventChannel = const EventChannel(' ');
   final methodChannel = const MethodChannel('mobile_keyboard_visibility_dispose');
 
   @override
-  Future<void> mobileKeyBoardListener({Function(double height)? onHeight, Function(bool visibility)? onShow}) async {
+  Future<void> mobileKeyBoardListener(
+      {Function(double height)? onHeight, Function(KeyboardStatus status)? onShow}) async {
     eventChannel.receiveBroadcastStream().listen(
       (event) {
         if (event["height"] is num) {
@@ -19,9 +20,9 @@ class MethodChannelMobileKeyboardVisibility extends MobileKeyboardVisibilityPlat
             onHeight(double.parse(event["height"]));
           }
         }
-        if (event["visibility"] is bool) {
+        if (event["status"] is int) {
           if (onShow != null) {
-            onShow(event["visibility"]);
+            onShow(KeyboardStatus.values[event["status"]]);
           }
         }
       },

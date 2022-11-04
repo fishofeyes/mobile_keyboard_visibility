@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_keyboard_visibility/mobile_keyboard_visibility.dart';
+import 'package:mobile_keyboard_visibility/mobile_keyboard_visibility_platform_interface.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final _mobileKeyboardVisibilityPlugin = MobileKeyboardVisibility();
   double height = 0;
-  bool visibility = false;
+  KeyboardStatus status = KeyboardStatus.didHide;
   @override
   void initState() {
     super.initState();
@@ -27,7 +28,7 @@ class _MyAppState extends State<MyApp> {
     }, onShow: (sender) {
       setState(() {
         setState(() {
-          visibility = sender;
+          status = sender;
         });
       });
     });
@@ -50,7 +51,7 @@ class _MyAppState extends State<MyApp> {
             children: [
               const TextField(),
               Text("键盘高度$height"),
-              Text("键盘弹出$visibility"),
+              Text("键盘弹出$status"),
               TextButton(onPressed: () => _mobileKeyboardVisibilityPlugin.dispose(), child: Text("dispose"))
             ],
           ),

@@ -6,7 +6,8 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 class MockMobileKeyboardVisibilityPlatform with MockPlatformInterfaceMixin implements MobileKeyboardVisibilityPlatform {
   @override
-  Future<void> mobileKeyBoardListener({Function(double height)? onHeight, Function(bool visibility)? onShow}) async {}
+  Future<void> mobileKeyBoardListener(
+      {Function(double height)? onHeight, Function(KeyboardStatus status)? onShow}) async {}
 
   @override
   Future<void> dispose() async {}
