@@ -1,13 +1,10 @@
 package com.example.mobile_keyboard_visibility
 
-import android.R
 import android.app.Activity
 import android.graphics.Rect
 import android.view.View
-import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.annotation.NonNull
-
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -24,6 +21,9 @@ class MobileKeyboardVisibilityPlugin: FlutterPlugin, MethodCallHandler, Activity
   private lateinit var eventChannel: EventChannel
   private  var mainView: View? = null
   private  var eventSink: EventChannel.EventSink? = null
+  private var mWindowHeight = 0
+  private var isVisible = false
+  private var activity: Activity? = null
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "mobile_keyboard_visibility_dispose")
@@ -41,10 +41,12 @@ class MobileKeyboardVisibilityPlugin: FlutterPlugin, MethodCallHandler, Activity
   }
 
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+    dispose()
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-    listenForKeyboard(binding.activity)
+    activity = binding.activity;
+    listenForKeyboard();
   }
 
   override fun onDetachedFromActivityForConfigChanges() {
@@ -52,7 +54,8 @@ class MobileKeyboardVisibilityPlugin: FlutterPlugin, MethodCallHandler, Activity
   }
 
   override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-    listenForKeyboard(binding.activity)
+    activity = binding.activity;
+    listenForKeyboard()
   }
 
   override fun onDetachedFromActivity() {
@@ -61,15 +64,20 @@ class MobileKeyboardVisibilityPlugin: FlutterPlugin, MethodCallHandler, Activity
 
   override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
     eventSink = events
+    if(mainView == null) {
+      listenForKeyboard();
+    }
   }
 
   override fun onCancel(arguments: Any?) {
     eventSink = null
   }
 
-  private fun listenForKeyboard(activity: Activity) {
-    mainView = activity.findViewById<ViewGroup>(R.id.content)
-    mainView!!.viewTreeObserver.addOnGlobalLayoutListener(this)
+  private fun listenForKeyboard() {
+    if(activity != null) {
+      mainView = activity!!.findViewById(android.R.id.content)
+      mainView!!.viewTreeObserver.addOnGlobalLayoutListener(this)
+    }
   }
 
   private fun unregisterListener() {
@@ -87,8 +95,22 @@ class MobileKeyboardVisibilityPlugin: FlutterPlugin, MethodCallHandler, Activity
     if(mainView != null) {
       val r = Rect()
       mainView!!.getWindowVisibleDisplayFrame(r)
-      var newState = r.height().toDouble() / mainView!!.rootView.height.toDouble() < 0.85
-      eventSink?.success(mapOf("height" to mainView!!.rootView.height.toDouble()))
+      val height = r.height()
+      if(mWindowHeight == 0) {
+        mWindowHeight = height
+      } else {
+
+        val newState = r.height().toDouble() / mainView!!.rootView.height.toDouble() < 0.85
+        if(mWindowHeight != height) {
+          val keyboardHeight = (mWindowHeight - height.toDouble()) * (375.0 / mainView!!.rootView.width.toDouble())
+          eventSink?.success(mapOf("height" to keyboardHeight))
+        }
+        if (newState != isVisible) {
+          isVisible = newState
+          val status = if (isVisible) 3 else 1
+          eventSink?.success(mapOf("status" to status))
+        }
+      }
     }
   }
 }
