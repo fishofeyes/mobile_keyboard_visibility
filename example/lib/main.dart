@@ -36,6 +36,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
+    _mobileKeyboardVisibilityPlugin.dispose();
     super.dispose();
   }
 

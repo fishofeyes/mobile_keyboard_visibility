@@ -1,9 +1,38 @@
 # mobile_keyboard_visibility
 
-A new Flutter plugin project.
+获取键盘高度
 
 ## Getting Started
 
+```yaml
+dependencies:
+  mobile_keyboard_visibility: ^0.0.1
+```
+
+```dart
+@override
+void initState() {
+super.initState();
+
+_mobileKeyboardVisibilityPlugin.mobileKeyBoardListener(onHeight: (sender) {
+  setState(() {
+    height = sender;
+  });
+}, onShow: (sender) {
+  setState(() {
+    setState(() {
+      status = sender;
+    });
+  });
+});
+}
+
+@override
+void dispose() {
+_mobileKeyboardVisibilityPlugin.dispose();
+super.dispose();
+}
+```
 This project is a starting point for a Flutter
 [plug-in package](https://flutter.dev/developing-packages/),
 a specialized package that includes platform-specific implementation code for

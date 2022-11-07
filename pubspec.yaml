@@ -1,7 +1,7 @@
 name: mobile_keyboard_visibility
-description: A new Flutter plugin project.
+description: 获取键盘高度
 version: 0.0.1
-homepage:
+homepage: https://github.com/eyesoffish/mobile_keyboard_visibility
 
 environment:
   sdk: '>=2.18.4 <3.0.0'
