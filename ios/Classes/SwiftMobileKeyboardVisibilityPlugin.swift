@@ -10,7 +10,7 @@ public class SwiftMobileKeyboardVisibilityPlugin: NSObject, FlutterPlugin {
     let instance = SwiftMobileKeyboardVisibilityPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
     
-    let eventChannel = FlutterEventChannel(name: "mo", binaryMessenger: registrar.messenger())
+    let eventChannel = FlutterEventChannel(name: "mobile_keyboard_visibility_listener", binaryMessenger: registrar.messenger())
     eventChannel.setStreamHandler(instance.mobileHanlder)
   }
 
