@@ -1,6 +1,6 @@
 ## 0.0.4
 
-* fix ios add listener.
+* dart sdk version.
 ## 0.0.3
 
 * fix ios add listener.
