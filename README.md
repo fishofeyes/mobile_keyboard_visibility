@@ -3,7 +3,7 @@
 获取键盘高度
 
 ## Getting Started
-![demo](demo.gif)
+![demo](https://github.com/eyesoffish/mobile_keyboard_visibility/blob/main/demo.gif)
 ```yaml
 dependencies:
   mobile_keyboard_visibility: ^0.0.1

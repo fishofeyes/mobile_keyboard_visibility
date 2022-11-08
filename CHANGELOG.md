@@ -1,3 +1,10 @@
+## 0.0.4
+
+* fix ios add listener.
+## 0.0.3
+
+* fix ios add listener.
+
 ## 0.0.2
 
 * add demo gif.

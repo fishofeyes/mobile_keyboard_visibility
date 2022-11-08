@@ -12,11 +12,6 @@ class MobileKeyboardHandler: NSObject, FlutterStreamHandler {
   
   var eventSink: FlutterEventSink?
   
-  override init() {
-    super.init()
-    addListener()
-  }
-  
   func addListener() {
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIApplication.keyboardWillShowNotification, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIApplication.keyboardWillHideNotification, object: nil)
@@ -45,6 +40,7 @@ class MobileKeyboardHandler: NSObject, FlutterStreamHandler {
   }
   
   func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
+    addListener()
     eventSink = events;
     return nil;
   }
