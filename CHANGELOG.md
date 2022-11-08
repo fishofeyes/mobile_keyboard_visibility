@@ -1,6 +1,11 @@
+## 0.0.5
+
+* environment: sdk: '>=2.18.0 <3.0.0'
+
 ## 0.0.4
 
 * dart sdk version.
+
 ## 0.0.3
 
 * fix ios add listener.
