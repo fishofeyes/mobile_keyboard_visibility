@@ -1,6 +1,6 @@
 name: mobile_keyboard_visibility
 description: 获取键盘高度
-version: 0.0.3
+version: 0.0.4
 homepage: https://github.com/eyesoffish/mobile_keyboard_visibility
 
 environment:
