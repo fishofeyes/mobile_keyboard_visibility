@@ -11,8 +11,7 @@ class MethodChannelMobileKeyboardVisibility extends MobileKeyboardVisibilityPlat
   final methodChannel = const MethodChannel('mobile_keyboard_visibility_dispose');
 
   @override
-  Future<void> mobileKeyBoardListener(
-      {Function(double height)? onHeight, Function(KeyboardStatus status)? onShow}) async {
+  Future<void> mobileKeyBoardListener({Function(num height)? onHeight, Function(KeyboardStatus status)? onShow}) async {
     eventChannel.receiveBroadcastStream().listen(
       (event) {
         if (event["height"] is num) {

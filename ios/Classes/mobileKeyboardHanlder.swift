@@ -22,7 +22,7 @@ class MobileKeyboardHandler: NSObject, FlutterStreamHandler {
   @objc func keyboardWillShow(ano: Notification) {
     guard let rect:NSValue = ano.userInfo![UIApplication.keyboardFrameEndUserInfoKey] as? NSValue else { return }
     
-    let height = rect.cgRectValue.size.height * (375.0 / UIScreen.main.bounds.width)
+    let height = rect.cgRectValue.size.height
     self.eventSink?(["height": height])
     self.eventSink?(["status": 2])
   }

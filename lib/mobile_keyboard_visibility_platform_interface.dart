@@ -23,7 +23,7 @@ abstract class MobileKeyboardVisibilityPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<void> mobileKeyBoardListener({Function(double height)? onHeight, Function(KeyboardStatus status)? onShow}) {
+  Future<void> mobileKeyBoardListener({Function(num height)? onHeight, Function(KeyboardStatus status)? onShow}) {
     throw UnimplementedError('mobileKeyBoardListener() has not been implemented.');
   }
 
