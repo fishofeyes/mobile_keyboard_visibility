@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _mobileKeyboardVisibilityPlugin = MobileKeyboardVisibility();
-  double height = 0;
+  num height = 0;
   KeyboardStatus status = KeyboardStatus.didHide;
   @override
   void initState() {
@@ -27,9 +27,7 @@ class _MyAppState extends State<MyApp> {
       });
     }, onShow: (sender) {
       setState(() {
-        setState(() {
-          status = sender;
-        });
+        status = sender;
       });
     });
   }
@@ -53,7 +51,9 @@ class _MyAppState extends State<MyApp> {
               const TextField(),
               Text("键盘高度$height"),
               Text("键盘弹出$status"),
-              TextButton(onPressed: () => _mobileKeyboardVisibilityPlugin.dispose(), child: Text("dispose"))
+              TextButton(
+                  onPressed: () => _mobileKeyboardVisibilityPlugin.dispose(),
+                  child: Text("dispose"))
             ],
           ),
         ),
